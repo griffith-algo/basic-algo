@@ -1,125 +1,139 @@
-# Data Structures and Algorithms
+# Basic Algorithms Teaching Repository
 
-This repository contains weekly teaching examples and problem-set solutions for
-`2801ICT` and `7011ICT`. The material is organised by week and is intended for
-students who are new to algorithms, recursion, data structures, graph
-algorithms, dynamic programming, and introductory algorithm analysis.
+This repository contains beginner-friendly examples for algorithms, recursion,
+data structures, graph problems, dynamic programming, and introductory
+algorithm analysis. The material is organised by teaching week, and the code is
+written to be read by bachelor students who are still learning how to trace,
+modify, and compare algorithms.
 
-The codebase now includes:
+## What Is In This Repository
 
-- Python examples with beginner-friendly module docstrings and function
-  docstrings.
-- Clearer worked examples where the original code was incomplete or confusing.
-- C++ translations for the teaching material, added as grouped examples inside
-  each topic folder.
-- A refreshed week 5 sorting notebook that matches the cleaned Python scripts.
+Each teaching example now has:
 
-## Repository Layout
+- a Python version (`*.py`) used in the original class material
+- a matching C++ version (`*.cpp`) with the same stem and placed in the same folder
+- explanatory module comments and function-level documentation aimed at new learners
 
-Each folder contains lecture material, problem-set code, or both.
+Example:
+
+- `week-1/lecture/gcd.py`
+- `week-1/lecture/gcd.cpp`
+- `week-2/problem-set/prob_10_shares.py`
+- `week-2/problem-set/prob_10_shares.cpp`
+
+This one-file-per-example layout makes it easier to compare the same algorithm
+across Python and C++ without searching through combined teaching files.
+
+## Folder Structure
 
 - `week-1`
-  Introductory recursion, Euclid's algorithm, prime generation, search
-  examples, and basic algorithm puzzles.
+  Introductory recursion, Euclid's algorithm, Tower of Hanoi, prime generation,
+  and early problem-set exercises.
 - `week-2`
-  Searching, queues, stacks, graph representations, priority queues, and
-  introductory data-structure exercises.
+  Searching, linked structures, queues, stacks, graph representations, and
+  priority queues.
 - `week-3`
-  Graphs, maze backtracking, travelling salesperson examples, sorting, greedy
-  algorithms, and dynamic programming.
+  Graphs, maze backtracking, travelling salesperson, sorting, greedy methods,
+  and dynamic programming.
 - `week-4`
   Divide-and-conquer and memoization examples.
 - `week-5`
-  Sorting algorithms, a notebook version of the sorting material, and heap
-  checks.
+  Sorting algorithms and heap exercises.
 - `week-7&8`
-  Binary trees, binary search trees, heaps, and hashing examples.
+  Binary trees, binary search trees, heaps, and hashing.
 - `week-9&10`
-  Spanning-tree examples.
+  Spanning-tree algorithms.
 - `week11`
   Pattern matching, longest common subsequence, and edit distance.
 - `week12`
   Computational geometry and Huffman coding.
 
-## File Types
+## Naming Convention
 
-- `*.py`
-  The main teaching scripts used in the course.
-- `*.cpp`
-  Grouped C++ equivalents of the Python material for students comparing Python
-  and C++.
-- `*.ipynb`
-  Notebook-based walkthroughs for selected topics.
-- `*.pptx`, `*.gif`, `*.png`
-  Lecture slides and visual support material.
+For every Python example, the C++ translation uses the same file stem.
 
-## How To Use This Repository
+- `prob1.py` -> `prob1.cpp`
+- `maze.py` -> `maze.cpp`
+- `selection-sort.py` -> `selection-sort.cpp`
 
-1. Start with the lecture folders for the week you are studying.
-2. Read the docstrings before reading the body of each function.
-3. Run the Python or C++ examples with small inputs first.
-4. Move to the problem-set folders once you understand the lecture examples.
-5. Compare the Python and C++ versions when you want to see how the same
-   algorithm looks in both languages.
+This is intentional so students can keep one Python file and one C++ file open
+side by side.
 
-## Running The Code
+## How To Study From This Repository
 
-### Python
+A good workflow for beginners is:
 
-Run a single file with:
+1. Read the file-level comment at the top of the Python or C++ example.
+2. Read the function documentation before reading the function body.
+3. Trace the algorithm on a very small input by hand.
+4. Run the example and compare the output with your manual trace.
+5. Change one input at a time to see how the algorithm behaves.
+6. Compare the Python and C++ versions to understand language differences.
+
+## Running Python Files
+
+Run a single Python example with:
 
 ```bash
 python week-1/lecture/gcd.py
 ```
 
-### C++
+If a file uses a third-party library such as `matplotlib`, `pygame`,
+`networkx`, `numpy`, `scipy`, or `vpython`, that library must be installed in
+your Python environment first.
 
-Compile and run a C++ example with:
+## Running C++ Files
+
+Compile and run one C++ example with:
 
 ```bash
-g++ -std=c++17 week-5/lecture/1-selection-sort/selection-sort.cpp -o selection-sort
-./selection-sort
+g++ -std=c++17 week-1/lecture/gcd.cpp -o gcd
+./gcd
 ```
 
-## Recommended Background
+Another example:
 
-Students will get the most value from this repository if they are familiar
-with:
+```bash
+g++ -std=c++17 week-2/problem-set/prob_10_shares.cpp -o prob_10_shares
+./prob_10_shares
+```
 
-- Variables and basic data types.
-- `if` statements and loops.
-- Functions and return values.
-- Lists, arrays, and basic indexing.
+## Notes About The C++ Versions
 
-No advanced background is assumed for most week 1 to week 3 content.
+- Each `*.cpp` file is a direct teaching counterpart to one `*.py` file.
+- The C++ examples use console output by default so they stay easy to compile
+  and run.
+- When the original Python file used a graphical library, the C++ version uses
+  a console-based equivalent instead of a graphics dependency.
+- The comments in the C++ files explain function purpose, parameter meaning,
+  data types, and return values.
 
-## Notes About The Examples
+## Suggested Use In Class Or Self-Study
 
-- Some Python lecture files use external libraries such as `matplotlib`,
-  `pygame`, `networkx`, `numpy`, `scipy`, or `vpython`.
-- The C++ translations are console-based when the original Python example used
-  graphics or plotting.
-- Several files are intentionally short because they are meant to highlight one
-  algorithmic idea at a time.
-- The `main()` blocks are small demonstrations, not full test suites.
+You can use the repository in several ways:
 
-## Suggested Study Workflow
-
-For each week:
-
-1. Read the problem statement or lecture topic first.
-2. Trace the example by hand with a very small input.
-3. Run the code and compare the output with your trace.
-4. Change one input at a time and observe what the algorithm does.
-5. Try reimplementing the idea yourself before checking the provided solution.
+- read only the Python versions first if you are new to programming
+- read Python and C++ side by side if you are learning both languages
+- use the C++ versions for practice translating algorithm ideas into a typed language
+- modify the sample inputs and observe how the output changes
 
 ## Verification
 
-The repository has been checked with:
+A full repository check can be done with:
 
-- `python -m compileall -q .`
-- `g++ -std=c++17 -fsyntax-only` on all generated `*.cpp` files
+```bash
+python -m compileall -q .
+find . -name '*.cpp' -print0 | xargs -0 -n1 g++ -std=c++17 -fsyntax-only
+```
 
-## License
+## Audience
 
-See [LICENSE](/mnt/win_d/2801ict-2024-old/LICENSE).
+The repository is written for students who are still learning:
+
+- variables and data types
+- conditionals and loops
+- functions and return values
+- arrays, lists, stacks, queues, trees, and graphs
+- basic algorithmic thinking and tracing
+
+The examples are intentionally small so one idea can be studied at a time.

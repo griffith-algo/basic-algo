@@ -1,32 +1,40 @@
+/**
+ * @file bubble-sort.cpp
+ * @brief C++ version of the week 5 bubble-sort lecture example.
+ */
+
 #include <iostream>
-#include <utility>
 #include <vector>
 
 using namespace std;
 
 /**
  * @brief Sort the list in ascending order using bubble sort.
- * @param values vector<int>& The vector of values processed by the function.
- * @return void This function updates data or prints results and does not return a value.
+ * @param array vector<int>& List of integers to sort in place.
+ * @return void This function updates array in place and does not return a value.
  */
-void bubbleSort(vector<int>& values) {
-    for (size_t pass = 0; pass < values.size(); ++pass) {
+void bubbleSort(vector<int>& array) {
+    for (size_t pass_number = 0; pass_number < array.size(); ++pass_number) {
         bool swapped = false;
-        for (size_t i = 0; i + 1 < values.size() - pass; ++i) {
-            if (values[i] > values[i + 1]) {
-                swap(values[i], values[i + 1]);
+        for (size_t index = 0; index + 1 < array.size() - pass_number; ++index) {
+            if (array[index] > array[index + 1]) {
+                swap(array[index], array[index + 1]);
                 swapped = true;
             }
         }
-        for (int value : values) cout << value << ' ';
+        for (int value : array) {
+            cout << value << ' ';
+        }
         cout << '\n';
-        if (!swapped) break;
+        if (!swapped) {
+            break;
+        }
     }
 }
 
 /**
- * @brief Run the small demonstration for this teaching example.
- * @return int The integer result produced by the algorithm.
+ * @brief Run the bubble-sort lecture example.
+ * @return int Exit status code returned to the operating system.
  */
 int main() {
     vector<int> data = {6, 5, 3, 1, 8, 7, 2, 4};

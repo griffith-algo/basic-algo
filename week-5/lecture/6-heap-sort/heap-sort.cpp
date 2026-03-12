@@ -1,53 +1,65 @@
+/**
+ * @file heap-sort.cpp
+ * @brief C++ version of the week 5 heap-sort lecture example.
+ */
+
 #include <iostream>
-#include <utility>
 #include <vector>
 
 using namespace std;
 
 /**
- * @brief Restore the heap property for the subtree rooted at the given index.
- * @param values vector<int>& The vector of values processed by the function.
- * @param heap_size int The heap_size value used by this function.
- * @param root int The root node of the current tree.
- * @return void This function updates data or prints results and does not return a value.
+ * @brief Restore the heap property for the subtree rooted at a given index.
+ * @param arr vector<int>& List of integers arranged as a binary heap in an array.
+ * @param n int Number of heap elements currently considered active.
+ * @param i int Root index of the subtree that may violate the heap property.
+ * @return void This function updates arr in place and does not return a value.
  */
-void heapify(vector<int>& values, int heap_size, int root) {
-    int largest = root;
-    int left = 2 * root + 1;
-    int right = 2 * root + 2;
+void heapify(vector<int>& arr, int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
 
-    if (left < heap_size && values[left] > values[largest]) largest = left;
-    if (right < heap_size && values[right] > values[largest]) largest = right;
-
-    if (largest != root) {
-        swap(values[root], values[largest]);
-        heapify(values, heap_size, largest);
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
     }
 }
 
 /**
  * @brief Sort the list in ascending order using heap sort.
- * @param values vector<int>& The vector of values processed by the function.
- * @return void This function updates data or prints results and does not return a value.
+ * @param arr vector<int>& List of integers to sort in place.
+ * @return void This function updates arr in place and does not return a value.
  */
-void heapSort(vector<int>& values) {
-    for (int index = static_cast<int>(values.size()) / 2 - 1; index >= 0; --index) {
-        heapify(values, static_cast<int>(values.size()), index);
+void heapSort(vector<int>& arr) {
+    int n = static_cast<int>(arr.size());
+
+    for (int i = n / 2; i >= 0; --i) {
+        heapify(arr, n, i);
     }
-    for (int end = static_cast<int>(values.size()) - 1; end > 0; --end) {
-        swap(values[0], values[end]);
-        heapify(values, end, 0);
+    for (int i = n - 1; i > 0; --i) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
     }
 }
 
 /**
- * @brief Run the small demonstration for this teaching example.
- * @return int The integer result produced by the algorithm.
+ * @brief Run the heap-sort lecture example.
+ * @return int Exit status code returned to the operating system.
  */
 int main() {
-    vector<int> data = {1, 12, 9, 5, 6, 10};
-    heapSort(data);
-    for (int value : data) cout << value << ' ';
+    vector<int> arr = {1, 12, 9, 5, 6, 10};
+    heapSort(arr);
+    cout << "Sorted array is\n";
+    for (int value : arr) {
+        cout << value << ' ';
+    }
     cout << '\n';
     return 0;
 }
