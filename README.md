@@ -1,4 +1,4 @@
-# 2801/7011ICT Algorithm Examples
+# Data Structures and Algorithms
 
 This repository contains weekly teaching examples and problem-set solutions for
 `2801ICT` and `7011ICT`. The material is organised by week and is intended for
