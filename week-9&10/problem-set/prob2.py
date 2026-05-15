@@ -1,86 +1,73 @@
-"""Prob2 example.
-
-This file belongs to the week 9 and 10 spanning-tree practice solutions. It uses Graph to illustrate the main idea with a small runnable example.
-"""
-
-from collections import defaultdict
-
 class Graph:
-    """Weighted graph used to demonstrate spanning-tree construction."""
+    """A weighted graph for finding a Maximum Spanning Tree using Kruskal's algorithm."""
+
     def __init__(self, vertices):
-        """Run the   init   step used in this example.
-
-        Args:
-            vertices (int): The vertices input used by this function.
-
-        Returns:
-            None: This function updates data or prints results and does not return a value.
-        """
+        # Number of vertices in the graph
         self.V = vertices
+
+        # List of edges. Each edge is stored as: (u, v, weight)
         self.graph = []
 
     def add_edge(self, u, v, w):
-        """Add a weighted edge to the graph.
-
-        Args:
-            u (object): The u input used by this function.
-            v (object): The v input used by this function.
-            w (object): The w input used by this function.
-
-        Returns:
-            None: This function updates data or prints results and does not return a value.
-        """
+        """Add an edge between vertex u and vertex v with weight w."""
         self.graph.append((u, v, w))
 
     def find(self, parent, i):
-        """Search the text for every occurrence of the pattern.
+        """
+        Find the root representative of the set containing vertex i.
 
-        Args:
-            parent (object): The parent input used by this function.
-            i (int): The i input used by this function.
-
-        Returns:
-            int: The integer result produced by the algorithm.
+        If parent[i] == i, then i is the root of its set.
+        Otherwise, keep moving upward until we find the root.
         """
         if parent[i] == i:
             return i
+
         return self.find(parent, parent[i])
 
     def union(self, parent, rank, x, y):
-        """Merge the two sets that contain the given vertices.
-
-        Args:
-            parent (object): The parent input used by this function.
-            rank (object): The rank input used by this function.
-            x (int): The x input used by this function.
-            y (int): The y input used by this function.
-
-        Returns:
-            None: This function updates data or prints results and does not return a value.
         """
+        Merge the two sets containing x and y.
+
+        The rank array helps keep the tree shallow.
+        The smaller-rank tree is attached under the larger-rank tree.
+        """
+
+        # Find the root of each set
         x_root = self.find(parent, x)
         y_root = self.find(parent, y)
 
+        # If x's tree is shorter, attach it under y's tree
         if rank[x_root] < rank[y_root]:
             parent[x_root] = y_root
+
+        # If y's tree is shorter, attach it under x's tree
         elif rank[x_root] > rank[y_root]:
             parent[y_root] = x_root
+
+        # If both trees have the same rank, choose one as root
+        # and increase its rank because the tree height may grow
         else:
             parent[y_root] = x_root
             rank[x_root] += 1
 
     def maximum_spanning_tree(self):
-        """Build a maximum spanning tree using Kruskal's algorithm.
-
-        Returns:
-            list: The list produced by the algorithm.
         """
-        result = []
-        i = 0
-        e = 0
+        Build a Maximum Spanning Tree using Kruskal's algorithm.
 
-        self.graph = sorted(self.graph, key=lambda item: item[2], reverse=True)
+        Steps:
+        1. Sort edges from largest weight to smallest weight.
+        2. Add an edge if it does not create a cycle.
+        3. Stop when the tree has V - 1 edges.
+        """
 
+        result = []  # Stores edges selected for the maximum spanning tree
+        i = 0        # Index for sorted edges
+        e = 0        # Number of selected edges
+
+        # Sort edges by weight in descending order for Maximum Spanning Tree
+        self.graph = sorted(self.graph, key=lambda edge: edge[2], reverse=True)
+
+        # Initially, each vertex is its own parent
         parent = []
         rank = []
 
@@ -88,21 +75,29 @@ class Graph:
             parent.append(node)
             rank.append(0)
 
+        # A spanning tree with V vertices must have exactly V - 1 edges
         while e < self.V - 1:
             u, v, w = self.graph[i]
             i += 1
+
+            # Find the sets of u and v
             u_root = self.find(parent, u)
             v_root = self.find(parent, v)
 
+            # If u and v are in different sets, adding this edge will not create a cycle
             if u_root != v_root:
-                e += 1
                 result.append((u, v, w))
+                e += 1
+
+                # Merge the two sets
                 self.union(parent, rank, u_root, v_root)
 
         return result
 
+
 # Example
 g = Graph(4)
+
 g.add_edge(0, 1, 10)
 g.add_edge(0, 2, 6)
 g.add_edge(0, 3, 5)
